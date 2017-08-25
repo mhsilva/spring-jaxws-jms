@@ -19,9 +19,16 @@ public class MySpringApplicationContext implements ApplicationContextAware {
 		if (instance == null) {
 			throw new IllegalStateException("Application context do spring está nulo !");
 		}
-
 		T bean = instance.getBean(beanClass);
-
 		return bean;
 	}
+	
+	public static <T> T getBean(String beanName,
+	        Class<T> beanClass) {
+	        if (instance == null) {
+	            throw new IllegalStateException("Application context do spring está nulo !");
+	        }
+	        T bean = instance.getBean(beanName, beanClass);
+	        return bean;
+	    }
 }

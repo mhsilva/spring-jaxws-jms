@@ -1,9 +1,10 @@
 package br.com.spring.jaxws.jms.pojo;
 
-public class MessageRequest {
+public class MessageRequest implements InterfaceLayout {
 	private String to;
 	private String from;
 	private String message;
+	private String commonAttribute;
 
 	public String getTo() {
 		return to;
@@ -27,5 +28,13 @@ public class MessageRequest {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getCommonAttribute() {
+		return commonAttribute;
+	}
+
+	public void setCommonAttribute(String commonAttribute) {
+		this.commonAttribute = commonAttribute;
 	}
 }

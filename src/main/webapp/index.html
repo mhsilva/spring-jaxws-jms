@@ -23,7 +23,7 @@
 		angular.module('QueueApp', []).controller('QueueController', ['$scope', '$http', function($scope, $http){
 			$scope.readQueue = function() {
 				$http.get("/spring-jaxws-jms/queueList").then(function(response){
-					$scope.nome = response.data.messageStatus;
+					$scope.messages = response.data;
 				});
 			}
 		}]);
@@ -53,15 +53,30 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4">
-				<span>{{nome}}</span>
+			<div class="col-sm-12">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="col-sm-2">From</th>
+							<th class="col-sm-2">To</th>
+							<th class="col-sm-6">Message</th>
+							<th class="col-sm-2"><button type="button" class="btn btn-info"
+									ng-click="readQueue()">
+									<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+									Refresh
+								</button></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in messages">
+							<td>{{ x.from }}</td>
+							<td>{{ x.to }}</td>
+							<td>{{ x.message }}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<div class="col-sm-4">
-				<button type="button" class="btn btn-info" ng-click="readQueue()">
-					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-					Refresh
-				</button>
-			</div>
+			<div class="col-sm-4"></div>
 		</div>
 	</div>
 </body>
