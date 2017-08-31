@@ -1,10 +1,12 @@
 package br.com.spring.jaxws.jms.pojo;
 
-public class MessageRequest implements InterfaceLayout {
+public class MessageRequest extends QueueAbstractWrapper {
+	
+	private static final long serialVersionUID = -2537714368753499750L;
+	
 	private String to;
 	private String from;
 	private String message;
-	private String commonAttribute;
 
 	public String getTo() {
 		return to;
@@ -28,13 +30,5 @@ public class MessageRequest implements InterfaceLayout {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public String getCommonAttribute() {
-		return commonAttribute;
-	}
-
-	public void setCommonAttribute(String commonAttribute) {
-		this.commonAttribute = commonAttribute;
 	}
 }

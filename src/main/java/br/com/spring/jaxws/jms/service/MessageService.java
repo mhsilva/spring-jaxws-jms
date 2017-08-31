@@ -7,7 +7,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import br.com.spring.jaxws.jms.pojo.MessageRequest;
-import br.com.spring.jaxws.jms.utils.MessageConstants;
+import br.com.spring.jaxws.jms.utils.QueueConstants;
 
 @Service
 public class MessageService {
