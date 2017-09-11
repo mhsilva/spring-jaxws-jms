@@ -1,6 +1,5 @@
 package br.com.spring.jaxws.jms.utils;
 
-import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,9 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
 
 import br.com.spring.jaxws.jms.service.QueueListenerService;
 
@@ -41,25 +37,17 @@ public class QueueConfiguration {
 		return connectionFactory;
 	}
 
-	// Convert Objects into JSON
-	/*@Bean
-	public MessageConverter jacksonJmsMessageConverter() {
-		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-		converter.setTargetType(MessageType.TEXT);
-		converter.setTypeIdPropertyName("_type");
-		return converter;
-	}*/
-
 	// JMS Template Bean, for sending and consumig the JMS Queue
 	@Bean
 	public JmsTemplate jmsTemplate() {
 		JmsTemplate template = new JmsTemplate();
 		template.setConnectionFactory(connectionFactory());
-		template.setDefaultDestinationName(QueueConstants.MESSAGE_TOPIC);
+		template.setDefaultDestinationName(QueueConstants.MESSAGE_QUEUE);
 		//template.setMessageConverter(jacksonJmsMessageConverter());
 		return template;
 	}
 
+	/* Message Handling */
 	@Bean
 	public MessageListenerAdapter messageListenerAdapter() {
 		MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(receivedMessageListenerService);
@@ -73,8 +61,9 @@ public class QueueConfiguration {
 	public DefaultMessageListenerContainer receivedMessageListenerContainer() {
 		DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
 		defaultMessageListenerContainer.setConnectionFactory(connectionFactory());
-		defaultMessageListenerContainer.setDestinationName(QueueConstants.MESSAGE_TOPIC);
+		defaultMessageListenerContainer.setDestinationName(QueueConstants.MESSAGE_QUEUE);
 		defaultMessageListenerContainer.setMessageListener(messageListenerAdapter());
+		defaultMessageListenerContainer.setConcurrentConsumers(5);
 		return defaultMessageListenerContainer;
 	}
 }

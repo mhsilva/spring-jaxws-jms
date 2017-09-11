@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public abstract class QueueAbstractWrapper implements Serializable {
 
-	private static final long serialVersionUID = -3501169825264694024L;
+	private static final long serialVersionUID = -4836579528850568931L;
 
 	private String commonAttribute;
 

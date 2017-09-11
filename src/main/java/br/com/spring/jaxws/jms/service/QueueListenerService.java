@@ -23,7 +23,6 @@ public class QueueListenerService {
 
 	public <T> void handleMessage(byte[] message) {
 		QueueAbstractWrapper wrapper = (QueueAbstractWrapper) SerializationUtils.deserialize(message) ;
-		System.out.println(wrapper.getCommonAttribute());
 		InterfaceService<QueueAbstractWrapper> interfaceService = MySpringApplicationContext.getBean(wrapper.getInterfaceType(), InterfaceService.class);
 		interfaceService.processData(wrapper);
 	}

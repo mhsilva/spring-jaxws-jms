@@ -21,11 +21,27 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 		angular.module('QueueApp', []).controller('QueueController', ['$scope', '$http', function($scope, $http){
+			$scope.exit;
 			$scope.readQueue = function() {
-				$http.get("/spring-jaxws-jms/queueList").then(function(response){
+				$http.get("/spring-jaxws-jms/messageList").then(function(response){
 					$scope.messages = response.data;
 				});
-			}
+				$http.get("/spring-jaxws-jms/userList").then(function(response){
+					$scope.users = response.data;
+				});
+			};
+			$scope.saveExit = function() {
+				$http({
+					url : '/spring-jaxws-jms/exitSave',
+					method : 'POST',
+					data : {
+						source : $scope.exit
+					},
+					headers : {
+						'Content-Type' : 'application/json'
+					}
+				});
+			};
 		}]);
 	</script>
 </head>
@@ -60,8 +76,8 @@
 							<th class="col-sm-2">From</th>
 							<th class="col-sm-2">To</th>
 							<th class="col-sm-6">Message</th>
-							<th class="col-sm-2"><button type="button" class="btn btn-info"
-									ng-click="readQueue()">
+							<th class="col-sm-2"><button type="button"
+									class="btn btn-info" ng-click="readQueue()">
 									<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 									Refresh
 								</button></th>
@@ -77,6 +93,41 @@
 				</table>
 			</div>
 			<div class="col-sm-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="col-sm-2">Username</th>
+							<th class="col-sm-2">Name</th>
+							<th class="col-sm-6">Age</th>
+							<th class="col-sm-2"><button type="button"
+									class="btn btn-info" ng-click="readQueue()">
+									<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+									Refresh
+								</button></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in users">
+							<td>{{ x.username }}</td>
+							<td>{{ x.name }}</td>
+							<td>{{ x.age }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<textarea class="form-control" rows="5" ng-model="exit"></textarea>
+				<button type="button" class="btn btn-info" ng-click="saveExit()">
+					<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+					Save
+				</button>
+			</div>
 		</div>
 	</div>
 </body>

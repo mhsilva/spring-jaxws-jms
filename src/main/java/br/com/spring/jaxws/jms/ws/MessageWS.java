@@ -13,7 +13,7 @@ public class MessageWS extends AbstractWebService {
 
 	@WebMethod
 	public MessageResponse sendMessage(MessageRequest req) {
-		this.enqueueMethod(req);
+		this.enqueue(req);
 		return new MessageResponse("Message Sent");
 	}
 

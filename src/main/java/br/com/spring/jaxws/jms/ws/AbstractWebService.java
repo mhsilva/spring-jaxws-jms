@@ -17,9 +17,9 @@ public abstract class AbstractWebService {
 		return jmsTemplate;
 	}
 
-	public void enqueueMethod(QueueAbstractWrapper req) {
+	public void enqueue(QueueAbstractWrapper req) {
 		req.setInterfaceType(this.getFunctionalityName());
-		getJmsTemplate().convertAndSend(QueueConstants.MESSAGE_TOPIC, SerializationUtils.serialize(req));
+		getJmsTemplate().convertAndSend(QueueConstants.MESSAGE_QUEUE, SerializationUtils.serialize(req));
 	}
 	
 	abstract String getFunctionalityName();

@@ -5,13 +5,22 @@
 <web-app>
 	<display-name>Spring Jaxws JMS</display-name>
 	<servlet>
-		<servlet-name>HelloJaxWS</servlet-name>
+		<servlet-name>UserWS</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>MessageWS</servlet-name>
 		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>HelloJaxWS</servlet-name>
-		<url-pattern>/HelloJaxWS</url-pattern>
+		<servlet-name>MessageWS</servlet-name>
+		<url-pattern>/MessageWS</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserWS</servlet-name>
+		<url-pattern>/UserWS</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>spring-web</servlet-name>

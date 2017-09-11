@@ -5,5 +5,9 @@
 	<endpoint name="MessageWS"
 		implementation="br.com.spring.jaxws.jms.ws.MessageWS"
 		url-pattern="/MessageWS" />
-
+	
+	<endpoint name="UserWS"
+		implementation="br.com.spring.jaxws.jms.ws.UserWS"
+		url-pattern="/UserWS" />
+	
 </endpoints>
